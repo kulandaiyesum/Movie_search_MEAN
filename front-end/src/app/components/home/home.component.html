@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="container">
+    <div class="h1 text-center text-primary p-3 text-bg-light">Movie World</div>
+    <form class="d-flex justify-content-center flex-wrap row-gap-3">
+      <div class="me-3" style="min-width: 300px">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search movie here..."
+          [(ngModel)]="search"
+          name="search"
+        />
+      </div>
+      <div class="">
+        <button type="submit" (click)="searchMovies()" class="btn btn-primary">
+          search
+        </button>
+      </div>
+    </form>
+    <div class="movies_container" appInfinitescroll (scrolled)="loadMore()">
+      <div *ngIf="movies.length !== 0 && !isLoading">
+        <div class="movies row mt-5">
+          <app-movie-card
+            *ngFor="let movie of movies"
+            [movie]="movie"
+            class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12"
+          >
+          </app-movie-card>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center" *ngIf="isLoading">
+        <img src="../../../assets/img/loader.gif" width="50" height="50" />
+      </div>
+      <div *ngIf="movies.length === 0" class="card p-5 m-5">
+        <p class="text-center">No movies Found</p>
+      </div>
+    </div>
+  </div>
+</div>
